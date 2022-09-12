@@ -10,7 +10,7 @@ public class Player : NetworkBehaviour
     {
         if(!isLocalPlayer) return;
 
-        CameraManager.Instance.InitializeCamera(connectedCamera.gameObject);
+        CameraManager.Instance.InitializeCamera(connectedCamera);
         UiPanelManager.Instance.SetPanelState(PanelId.Scoreboard, true);
         UiPanelManager.Instance.SetPanelState(PanelId.WinnerNotification, false);
     }
@@ -21,6 +21,6 @@ public class Player : NetworkBehaviour
         
         UiPanelManager.Instance.SetPanelState(PanelId.Scoreboard, false);
         
-        CameraManager.Instance.ForgetCamera(connectedCamera.gameObject);
+        CameraManager.Instance.ForgetCamera(connectedCamera);
     }
 }

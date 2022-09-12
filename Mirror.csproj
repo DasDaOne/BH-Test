@@ -106,8 +106,8 @@
      <Compile Include="Assets\Mirror\Runtime\Empty\Cloud\NetworkManagerListServer.cs" />
      <Compile Include="Assets\Mirror\Runtime\Empty\Cloud\ServerListManager.cs" />
      <Compile Include="Assets\Mirror\Runtime\Messages.cs" />
-     <Compile Include="Assets\Mirror\Runtime\Empty\ClientScene.cs" />
      <Compile Include="Assets\Mirror\Runtime\Empty\Cloud\BaseApi.cs" />
+     <Compile Include="Assets\Mirror\Runtime\Empty\ClientScene.cs" />
      <Compile Include="Assets\Mirror\Runtime\Empty\Cloud\ApiUpdater.cs" />
      <Compile Include="Assets\Mirror\Runtime\Empty\Cloud\Logger.cs" />
      <Compile Include="Assets\Mirror\Runtime\SyncVarNetworkBehaviour.cs" />

@@ -51,7 +51,7 @@ public class ServerController : NetworkSingleton<ServerController>
         NetworkServer.OnDisconnectedEvent += OnPlayerDisconnect;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         NetworkServer.OnDisconnectedEvent -= OnPlayerDisconnect;
     }

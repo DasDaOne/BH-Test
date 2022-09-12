@@ -29,8 +29,8 @@ public class PlayerMovement : NetworkBehaviour
     [Header("Other")]
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Transform visualModel;
-    [SerializeField] private float colliderWidth;
     [SerializeField] private DashColliderChecker dashColliderChecker;
+    [SerializeField] private float colliderWidth;
 
 
     private void Start()

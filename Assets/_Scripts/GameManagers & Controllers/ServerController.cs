@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Mirror;
@@ -49,7 +50,12 @@ public class ServerController : NetworkSingleton<ServerController>
     {
         NetworkServer.OnDisconnectedEvent += OnPlayerDisconnect;
     }
-    
+
+    private void OnDestroy()
+    {
+        NetworkServer.OnDisconnectedEvent -= OnPlayerDisconnect;
+    }
+
     public void StopServer(bool isHost)
     {
         NetworkServer.SendToAll(new ServerClosedMessage());
@@ -152,27 +158,29 @@ public class ServerController : NetworkSingleton<ServerController>
         SendWinnerNotification(winnerName);
         gameIsRunning = false;
 
-        StartCoroutine(TimeUtilities.Timer(delayBeforeRestartGame, () =>
-        {
-            NetworkManager.singleton.playerSpawnMethod = PlayerSpawnMethod.RoundRobin;
-            
-            foreach (KeyValuePair<int, NetworkConnectionToClient> connection in NetworkServer.connections)
-            {
-                NetworkServer.DestroyPlayerForConnection(connection.Value);
-                NetworkManager.singleton.OnServerAddPlayer(connection.Value);
-            }
-            
-            NetworkManager.singleton.playerSpawnMethod = PlayerSpawnMethod.Random;
-
-            gameIsRunning = true;
-            
-            foreach (KeyValuePair<int, NetworkConnectionToClient> connection in NetworkServer.connections)
-            {
-                ResetScore(connection.Value.connectionId);
-            }
-        }));
+        StartCoroutine(TimeUtilities.Timer(delayBeforeRestartGame, RestartGame));
         
         SendScoreboard();
+    }
+
+    private void RestartGame()
+    {
+        NetworkManager.singleton.playerSpawnMethod = PlayerSpawnMethod.RoundRobin;
+            
+        foreach (KeyValuePair<int, NetworkConnectionToClient> connection in NetworkServer.connections)
+        {
+            NetworkServer.DestroyPlayerForConnection(connection.Value);
+            NetworkManager.singleton.OnServerAddPlayer(connection.Value);
+        }
+            
+        NetworkManager.singleton.playerSpawnMethod = PlayerSpawnMethod.Random;
+
+        gameIsRunning = true;
+            
+        foreach (KeyValuePair<int, NetworkConnectionToClient> connection in NetworkServer.connections)
+        {
+            ResetScore(connection.Value.connectionId);
+        }
     }
 
     private void SendWinnerNotification(string winnerName)

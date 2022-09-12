@@ -53,7 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\_Scripts\UI\ScoreboardController.cs" />
-     <Compile Include="Assets\_Scripts\Player\Player.cs" />
+     <Compile Include="Assets\_Scripts\Player\PlayerCameraUiInit.cs" />
      <Compile Include="Assets\_Scripts\Player\PlayerDamage.cs" />
      <Compile Include="Assets\_Scripts\UI\UiPanel.cs" />
      <Compile Include="Assets\_Scripts\Player\PlayerMovement.cs" />

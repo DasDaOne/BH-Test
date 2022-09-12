@@ -6,27 +6,27 @@ using Utilities.Singletons;
 
 public class CameraManager : Singleton<CameraManager>
 {
-    private List<GameObject> initializedCameras = new List<GameObject>();
+    private List<CameraMovement> initializedCameras = new List<CameraMovement>();
 
-    public void InitializeCamera(GameObject newCamera, bool enable = true)
+    public void InitializeCamera(CameraMovement newCamera, bool enable = true)
     {
         initializedCameras.Add(newCamera);
         if(enable)
             EnableCamera(newCamera);
     }
 
-    public void ForgetCamera(GameObject cameraToForget)
+    public void ForgetCamera(CameraMovement cameraToForget)
     {
         initializedCameras.Remove(cameraToForget);
         EnableCamera(initializedCameras.First());
     }
     
-    private void EnableCamera(GameObject cameraToEnable)
+    private void EnableCamera(CameraMovement cameraToEnable)
     {
-        foreach (GameObject initializedCamera in initializedCameras)
+        foreach (CameraMovement initializedCamera in initializedCameras)
         {
-            initializedCamera.SetActive(false);
+            initializedCamera.gameObject.SetActive(false);
         }
-        cameraToEnable.SetActive(true);
+        cameraToEnable.gameObject.SetActive(true);
     }
 }

@@ -6,6 +6,8 @@ public class CameraMovement : MonoBehaviour
     [Header("Main settings")]
     [SerializeField] private bool isSceneCamera;
     [SerializeField] private bool isDelayed;
+    [SerializeField] private Transform centerPoint;
+
     
     [Header("Input settings")] 
     [SerializeField] private float sensitivity;
@@ -14,15 +16,11 @@ public class CameraMovement : MonoBehaviour
     [SerializeField, Range(-80, 80)] private float xRotationMin;
     [SerializeField, Range(-80, 80)] private float xRotationMax;
     
-    [Header("CameraPositioning")]
-    [SerializeField] private Transform centerPoint;
-
-    private bool canSpin;
-
-    public bool CanSpin => canSpin;
-
     private bool delayEnded;
     
+    private bool canSpin;
+    public bool CanSpin => canSpin;
+
     private void Start()
     {
         canSpin = !isSceneCamera;
@@ -31,7 +29,7 @@ public class CameraMovement : MonoBehaviour
 
         if (isSceneCamera)
         {
-            CameraManager.Instance.InitializeCamera(gameObject);
+            CameraManager.Instance.InitializeCamera(this);
             transform.RotateAround(centerPoint.position, transform.right, (xRotationMin + xRotationMax) / 2);
         }
         
@@ -92,9 +90,7 @@ public class CameraMovement : MonoBehaviour
         UiPanelManager.Instance.SetPanelState(PanelId.Network, state);
         
         if(state)
-        {
             Cursor.lockState = CursorLockMode.Confined;
-        }
         else
             Cursor.lockState = CursorLockMode.Locked;
     }

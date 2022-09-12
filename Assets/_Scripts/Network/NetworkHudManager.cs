@@ -15,7 +15,10 @@ public class NetworkHudManager : Singleton<NetworkHudManager>
     [SerializeField] private TMP_InputField ipAddressInputField;
     [SerializeField] private Button connectButton;
     [SerializeField] private TextMeshProUGUI connectButtonText;
+    [SerializeField] private Button hostButton;
+    [SerializeField] private TextMeshProUGUI hostButtonText;
     private string connectButtonDefaultText;
+    private string hostButtonDefaultText;
 
     [Header("Status Panel Components")]
     [SerializeField] private TextMeshProUGUI connectionStatus;
@@ -38,6 +41,7 @@ public class NetworkHudManager : Singleton<NetworkHudManager>
         ipAddressInputField.SetTextWithoutNotify(ipAddress);
 
         connectButtonDefaultText = connectButtonText.text;
+        hostButtonDefaultText = hostButtonText.text;
     }
 
     #region Utilities
@@ -107,8 +111,15 @@ public class NetworkHudManager : Singleton<NetworkHudManager>
     #region GUIManagment
     public void SetPlayerName(string newPlayerName)
     {
+        if (newPlayerName == "")
+        {
+            EmptyPlayerNameNotification();
+            return;
+        }
         playerName = newPlayerName;
         PlayerPrefs.SetString("PlayerName", newPlayerName);
+        ResetConnectIpButton();
+        ResetHostButton();
     }
 
     public void SetIpAddress(string ipAddress)
@@ -149,11 +160,26 @@ public class NetworkHudManager : Singleton<NetworkHudManager>
         connectButton.interactable = false;
     }
 
+    private void EmptyPlayerNameNotification()
+    {
+        connectButtonText.text = "Empty name!";
+        connectButton.interactable = false;
+        hostButtonText.text = "Empty name!";
+        hostButton.interactable = false;
+    }
+
     private void ResetConnectIpButton()
     {
         connectButtonText.text = connectButtonDefaultText;
         connectButton.interactable = true;
     }
+
+    private void ResetHostButton()
+    {
+        hostButtonText.text = hostButtonDefaultText;
+        hostButton.interactable = true;
+    }
+
     #endregion
     
     #endregion

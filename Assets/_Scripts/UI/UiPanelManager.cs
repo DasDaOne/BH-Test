@@ -29,14 +29,7 @@ public class UiPanelManager : Singleton<UiPanelManager>
         
         uiPanels.Remove(id);
     }
-
-    public void SwitchPanelState(PanelId id)
-    {
-        if(!CheckPanelExistence(id)) return;
-        
-        uiPanels[id].gameObject.SetActive(!uiPanels[id].gameObject.activeSelf);
-    }
-
+    
     public void SetPanelState(PanelId id, bool state)
     {
         if(!CheckPanelExistence(id)) return;
@@ -46,7 +39,6 @@ public class UiPanelManager : Singleton<UiPanelManager>
 
     private bool CheckPanelExistence(PanelId id)
     {
-        
         if (!uiPanels.ContainsKey(id))
         {
             Debug.LogError($"Panel with id \"{id}\" is not added in dictionary");

@@ -1,13 +1,8 @@
 using Mirror;
 using UnityEngine;
 
-public class CustomNetworkStartPosition : MonoBehaviour
-{
-    private void Awake()
-    {
-        NetworkManager.RegisterStartPosition(transform);
-    }
-
+public class CustomNetworkStartPosition : NetworkStartPosition
+{ 
     private void OnTriggerEnter(Collider other)
     {
         NetworkManager.UnRegisterStartPosition(transform);

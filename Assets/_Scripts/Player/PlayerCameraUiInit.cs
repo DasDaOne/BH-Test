@@ -1,7 +1,7 @@
 using Mirror;
 using UnityEngine;
 
-public class Player : NetworkBehaviour
+public class PlayerCameraUiInit : NetworkBehaviour
 {
     [Header("Camera")]
     [SerializeField] private CameraMovement connectedCamera;
